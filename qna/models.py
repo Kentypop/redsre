@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class Question(models.Model):
 	title= models.CharField(max_length= 100)
-	content= models.TextField()
+	body= models.TextField()
 	date_posted= models.DateTimeField(default=timezone.now)
 	author= models.ForeignKey(User, on_delete= models.CASCADE)
 
@@ -12,10 +12,10 @@ class Question(models.Model):
 		return self.title
 
 class Answer(models.Model):
-	title= models.CharField(max_length= 100)
-	content= models.TextField()
+	body= models.TextField()
+	question= models.ForeignKey(Question, on_delete= models.CASCADE)
 	date_posted= models.DateTimeField(default=timezone.now)
 	author= models.ForeignKey(User, on_delete= models.CASCADE)
 
 	def __str__(self):
-		return self.title
+		return self.body

@@ -1,8 +1,9 @@
 from django.shortcuts import render
-
+from .models import Question, Answer
 
 def qna(request):
 	context= {
-		'posts': Post.objects.all()
+		'questions': Question.objects.all(),
+		'answers': Answer.objects.all(),
 	}
-	return render(request, 'info/home.html', context)	
+	return render(request, 'qna/qna.html', context)	
