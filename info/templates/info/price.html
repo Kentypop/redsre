@@ -1,0 +1,13 @@
+{% extends "info/base.html" %}
+{% block content %}
+
+  {% for price in prices %}
+  <ul class="priceul">
+    <li> {{ price.name }}</li>
+    <li> RM {{ price.price }}</li>
+  </ul>
+
+  {% endfor %}
+
+
+{% endblock content %}
