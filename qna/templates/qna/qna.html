@@ -1,15 +1,44 @@
 {% extends "info/base.html" %}
 {% block content %}
 
-  {% for question in questions %}
-  	<h1> Question down here</h1>
-    <h3> {{ question.title }} </h3>
-  {% endfor %}
+<!--
 
-
-  {% for answer in answers %}
-    <h1> Answer Down here </h1> 
+{% for question in questions %}
+  		<h1> Q</h1>
+    	<h3> {{ question.title }} </h3>
+    	<h3> {{ question.body }} </h3>
+  {% for answer in question.answer_set.all %}
+    <h1> A </h1> 
     <h3> {{ answer.body }}</h3>
   {% endfor %}
+{% endfor %}
+
+{% for answer in answers %}
+        <h1> Question:</h1>
+        <h3> title:  {{ answer.question.title }} </h3>
+        <h3> body: {{ answer.question.body }} </h3>
+        <h1> Answer: </h1><h3> {{ answer.body }} </h3>
+{% endfor %}
+
+{% for question in questions %}
+  		<h1> Qqqqq</h1>
+    	<h3> {{ question.title }} </h3>
+    	<h3> {{ question.body }} </h3>
+  {% for answer in answers %}
+    <h1> A </h1> 
+    <h3> {{ answer.body }}</h3>
+  {% endfor %}
+
+{% endfor %}
+
+-->
+
+{% for answer in answers %}
+        <h1> Question:</h1>
+        <h3> title:  {{ answer.question.title }} </h3>
+        <h3> body: {{ answer.question.body }} </h3>
+        <h1> Answer: </h1><h3> {{ answer.body }} </h3>
+{% endfor %}
+
 
 {% endblock content %}
