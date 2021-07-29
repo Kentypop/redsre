@@ -33,6 +33,9 @@
 
 -->
 
+<h3> Cant find an answer? Submit a question!</h3>
+<a class="nav-item nav-link" href="{% url 'question' %}">Ask us a question! </a>
+
 {% for answer in answers %}
         <h1> Question:</h1>
         <h3> title:  {{ answer.question.title }} </h3>

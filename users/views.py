@@ -47,9 +47,10 @@ def profile(request):
 
 	return render(request, 'users/profile.html', context)	
 
-
+#created default login class view, inorder to flash message i used successmessagemixin
+#Created Class of a login view. 
 # https://dev.to/nuh/django-loginview-and-flash-messages-4k9k
 class MyLoginView(SuccessMessageMixin, LoginView):
 	template_name= 'users/login.html'
 	success_url='info-home'
-	success_message= 'Welcome back!'		
+	success_message= 'Welcome backkkkkkk!'		

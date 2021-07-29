@@ -30,6 +30,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name= 'users/logout.html'), name='logout'),
     path('qna/', qna_views.qna, name='qna'),
     path('question/', qna_views.question, name='question'),
+    path('answer/', qna_views.answer, name='answer'),
     path('', include('info.urls')),
 ]
 
