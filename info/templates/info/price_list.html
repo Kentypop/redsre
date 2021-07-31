@@ -1,0 +1,16 @@
+{% extends "info/base.html" %}
+{% block content %}
+
+  {% for price in object_list %}
+  <ul class="priceul">
+    <li> {{ price.name }}</li>
+    <li><a href=" {% url 'info-pricedetail' price.id %} "> RM {{ price.price }} </a></li>
+  </ul>
+
+
+
+  {% endfor %}
+
+
+
+{% endblock content %}

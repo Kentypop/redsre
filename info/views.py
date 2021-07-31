@@ -9,7 +9,7 @@ from django.views.generic import (
 	DetailView,
 	CreateView,
 	UpdateView,
-	DeleteView
+	DeleteView,
 )	
 
 poststry= [
@@ -75,7 +75,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 		return super().form_valid(form)	
 
 	def test_func(self):
-		#Get the post that we currentl;y trying to update
+		#Get the post that we currently trying to update
 		post= self.get_object()
 		if self.request.user == post.author:
 			return True
@@ -120,4 +120,51 @@ def pricenew(request):
 
 
 	return render(request, 'info/pricenew.html', {'form': form})	
+
+class PriceListView(ListView):
+	model= Price
+
+	#template naming convention
+	# <app>/<model>_<viewtype>.html
+	#info/price_list.html
+
+class PriceDetailView(DetailView):
+	model= Price
+
+	#https://stackoverflow.com/questions/39238867/django-generic-views-how-does-detailview-automatically-provides-the-variable-to
+	def get_context_object_name(self, obj):
+
+	    """Get the name to use for the object."""
+	    if self.context_object_name:
+	        return self.context_object_name
+	    elif isinstance(obj, Price):
+	        return obj._meta.model_name
+	    else:
+	        return None
+
+	    print(self.context_object_name)  
+	    print(obj._meta.model_name)
+	    
+class PriceUpdateView(LoginRequiredMixin, UpdateView):
+	model= Price
+	fields= ['name', 'price']
+
+
+	#@@@@@@@@@@@ Here we need to make a check in place for user== Lily or the author
+	#def test_func(self):
+	#	#Get the post that we using now
+	#	post= self.get_object()
+	#	if self.request.user == 
+
+class PriceDeleteView(LoginRequiredMixin, DeleteView):
+	model= Price
+	success_url= 'info-pricelist'
+
+	#@@@@@@@@@@ need to make a check in place for user== Lily or the author
+
+
+
+
+
+
 
