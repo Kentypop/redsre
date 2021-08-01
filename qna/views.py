@@ -4,6 +4,12 @@ from .forms import QuestionForm, AnswerForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (
+	ListView,
+	DetailView,
+	CreateView
+)	
 
 
 def qna(request):
@@ -52,4 +58,21 @@ def answer(request):
 		return redirect('qna')
 
 
-	return render(request, 'qna/answer.html', {'a_form': a_form})		
+	return render(request, 'qna/answer.html', {'a_form': a_form})	
+
+
+class QNAListView(ListView):
+	model= Answer
+	# <app>/<model>_<viewtype>.html
+
+class QNADetailView(DetailView):
+	model= Answer
+
+class QuestionCreateView(LoginRequiredMixin, CreateView):
+	model= Question	
+	fields= ['title', 'body']
+
+	#fix the NULL author problem. Tell that the author is the current user	
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		return super().form_valid(form)

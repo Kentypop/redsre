@@ -62,6 +62,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 	model= Post	
 	fields= ['title', 'content']
 
+	#fix the NULL author problem. Tell that the author is the current user
 	def form_valid(self, form):
 		form.instance.author = self.request.user
 		return super().form_valid(form)
@@ -158,7 +159,7 @@ class PriceUpdateView(LoginRequiredMixin, UpdateView):
 
 class PriceDeleteView(LoginRequiredMixin, DeleteView):
 	model= Price
-	success_url= 'info-pricelist'
+	success_url= '/pricelist'
 
 	#@@@@@@@@@@ need to make a check in place for user== Lily or the author
 

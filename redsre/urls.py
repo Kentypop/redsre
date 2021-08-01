@@ -31,6 +31,9 @@ urlpatterns = [
     path('qna/', qna_views.qna, name='qna'),
     path('question/', qna_views.question, name='question'),
     path('answer/', qna_views.answer, name='answer'),
+    path('qnalist/', qna_views.QNAListView.as_view(), name='qnalist'),
+    path('qna/<int:pk>/', qna_views.QNADetailView.as_view(), name='qnadetail'),
+    path('qna/new/', qna_views.QuestionCreateView.as_view() , name='question-create'),
     path('', include('info.urls')),
 ]
 
