@@ -12,7 +12,9 @@ class Post(models.Model):
  	def __str__(self):
  		return self.title
 
- 	#this method tell django how to find url to any spcific instance of a post	
+ 	#For redirect, created the post but WHERE to go AFTER its success	
+ 	#this method tell django how to find url to any spcific instance of a post
+ 	#Detail page, starting from 	
  	def get_absolute_url(self):	
  		#Reverse will return full path as a string
  		return reverse('post-detail', kwargs={'pk': self.pk})

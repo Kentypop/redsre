@@ -32,8 +32,13 @@ urlpatterns = [
     path('question/', qna_views.question, name='question'),
     path('answer/', qna_views.answer, name='answer'),
     path('qnalist/', qna_views.QNAListView.as_view(), name='qnalist'),
-    path('qna/<int:pk>/', qna_views.QNADetailView.as_view(), name='qnadetail'),
-    path('qna/new/', qna_views.QuestionCreateView.as_view() , name='question-create'),
+    path('answerdetail/<int:pk>/', qna_views.AnswerDetailView.as_view(), name='answerdetail'),
+    path('questiondetail/<int:pk>/', qna_views.QuestionDetailView.as_view(), name='questiondetail'),
+    path('questionna/new/', qna_views.QuestionCreateView.as_view() , name='question-create'),
+    path('qnanswer/<int:pk>/updateanswer', qna_views.AnswerUpdateView.as_view() , name='answer-update'),
+    path('questionna/<int:pk>/updatequestion', qna_views.QuestionUpdateView.as_view() , name='question-update'),
+    path('answer/<int:pk>/delete/', qna_views.AnswerDeleteView.as_view() , name='answerdelete'),
+    path('question/<int:pk>/delete/', qna_views.QuestionDeleteView.as_view() , name='questiondelete'),
     path('', include('info.urls')),
 ]
 

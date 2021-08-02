@@ -4,11 +4,13 @@ from .forms import QuestionForm, AnswerForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
 	ListView,
 	DetailView,
-	CreateView
+	CreateView,
+	UpdateView,
+	DeleteView
 )	
 
 
@@ -65,8 +67,11 @@ class QNAListView(ListView):
 	model= Answer
 	# <app>/<model>_<viewtype>.html
 
-class QNADetailView(DetailView):
+class AnswerDetailView(DetailView):
 	model= Answer
+
+class QuestionDetailView(DetailView):
+	model= Question
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
 	model= Question	
@@ -76,3 +81,64 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
 	def form_valid(self, form):
 		form.instance.author = self.request.user
 		return super().form_valid(form)
+
+class AnswerCreateView(LoginRequiredMixin, CreateView):
+	model= Answer
+	fields= ['body', 'question']
+
+	#fix the NULL author problem. Tell that the author is the current user	
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		return super().form_valid(form)		
+
+class AnswerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+	model= Answer
+	fields= ['body', 'question'] 
+
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		return super().form_valid(form)	
+
+	def test_func(self):
+		#Get the post that we currently trying to update
+		answer= self.get_object()
+		if self.request.user == answer.author:
+			return True
+		return False		
+
+class QuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+	model= Question
+	fields= ['title', 'body'] 
+
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		return super().form_valid(form)	
+
+	def test_func(self):
+		#Get the post that we currently trying to update
+		question= self.get_object()
+		if self.request.user == question.author:
+			return True
+		return False			
+
+class AnswerDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	model= Answer	
+	success_url= '/qnalist'
+
+	def test_func(self):
+		#Get the post that we currentl;y trying to update
+		answer= self.get_object()
+		if self.request.user == answer.author:
+			return True
+		return False			
+
+class QuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	model= Question	
+	success_url= '/qnalist'
+
+	def test_func(self):
+		#Get the post that we currentl;y trying to update
+		question= self.get_object()
+		if self.request.user == question.author:
+			return True
+		return False					

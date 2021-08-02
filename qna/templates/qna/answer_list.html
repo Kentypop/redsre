@@ -7,9 +7,9 @@
 
 {% for answer in object_list %}
         <h1> Question:</h1>
-        <h3><a href=" {% url 'qnadetail' answer.id %} "> title:  {{ answer.question.title }}  </a></h3>
+        <h3><a href=" {% url 'questiondetail' answer.question.id %} "> title:  {{ answer.question.title }}  </a></h3>
         <h3> body: {{ answer.question.body }} </h3>
-        <h1> Answer: </h1><h3> {{ answer.body }} </h3>
+        <h1> <a href="{% url 'answerdetail' answer.id %}"> Answer: </a></h1><h3> {{ answer.body }} </h3>
 {% endfor %}
 
 

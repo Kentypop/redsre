@@ -9,8 +9,8 @@
       <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
       {% if object.author == user %}
         <div>
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'answer-update' object.id %}">Update</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'answerdelete' object.id %}">Delete</a>          
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'question-update' object.id %}">Update</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'questiondelete' object.id %}">Delete</a>          
         </div>
 <a href=""></a>
       {% endif %}
@@ -18,9 +18,8 @@
 
  
         <h1> Question:</h1>
-        <h3> title:  {{ object.question.title }} </h3>
-        <h3> body: {{ object.question.body }} </h3>
-        <h1> Answer: </h1><h3> {{ object.body }} </h3>
+        <h3> Q title:  {{ object.title }} </h3>
+        <h3> Q body: {{ object.body }} </h3>
 
   </div>
 </article>
