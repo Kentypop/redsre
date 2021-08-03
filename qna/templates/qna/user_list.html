@@ -1,18 +1,19 @@
 {% extends "info/base.html" %}
 {% block content %}
-	{% for post in posts %}
-<article class="media content-section">
-  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-    </div>
-    <h2><a class="article-title" href=" {% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-    <p class="article-content">{{ post.content }}</p>
-  </div>
-</article>
-	{% endfor %}
+
+  <h1 class="mb-3">QnA by {{ view.kwagrs.username }} ({{ page_obj.paginator.count }})</h1>
+
+<h3> Cant find an answer? Submit a question!</h3>
+<a class="nav-item nav-link" href="{% url 'question' %}">Ask us a question! </a>
+
+{% for answer in object_list %}
+		<h1><a href="{% url 'userlist' answer.author.username %}">Author: {{ answer.author }} </h1>
+        <h1> Question:</h1>
+        <h3><a href=" {% url 'questiondetail' answer.question.id %} "> title:  {{ answer.question.title }}  </a></h3>
+        <h3> body: {{ answer.question.body }} </h3>
+        <h1> <a href="{% url 'answerdetail' answer.id %}"> Answer: </a></h1><h3> {{ answer.body }} </h3>
+{% endfor %}
+
   {% if is_paginated %}
 
     {% if page_obj.has_previous %}
@@ -23,7 +24,7 @@
     {% for num in page_obj.paginator.page_range %}
       {% if page_obj.number == num %}
       <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
       <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
       {% endif %}
     {% endfor %}
@@ -33,8 +34,7 @@
       <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
     {% endif %}    
 
-  {% endif %}  
+  {% endif %} 
 
 
-
-{% endblock content %}	
+{% endblock content %}

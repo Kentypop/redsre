@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Question, Answer
 from .forms import QuestionForm, AnswerForm
 from django.contrib import messages
@@ -66,6 +66,19 @@ def answer(request):
 class QNAListView(ListView):
 	model= Answer
 	# <app>/<model>_<viewtype>.html
+	paginate_by= 2
+
+class UserListView(ListView):
+	model= Answer
+	template_name= 'qna/user_list.html' 
+	# <app>/<model>_<viewtype>.html
+	context_object_name= 'answer'
+	paginate_by= 2
+
+	def get_queryset(self):
+		user= get_object_or_404(User, username= self.kwargs.get('username'))
+		return Answer.objects.filter(author=user).order_by('-date_posted')
+
 
 class AnswerDetailView(DetailView):
 	model= Answer
