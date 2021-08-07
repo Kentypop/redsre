@@ -46,7 +46,7 @@ girl= [
 
 def home(request):
 	context= {
-		'posts': Post.objects.all()
+		'posts': Post.objects.all(),
 	}
 	return render(request, 'info/home.html', context)	
 
@@ -119,7 +119,8 @@ def about(request):
 
 def price(request):
 	context= {
-		'prices': Price.objects.all()
+		'prices': Price.objects.all(),
+		'title': "SWAG"
 	}
 	return render(request, 'info/price.html', context)		
 
