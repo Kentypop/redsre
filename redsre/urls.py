@@ -18,6 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from users import views as user_views
 from qna import views as qna_views
+from searches.views import search_view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -41,6 +42,7 @@ urlpatterns = [
     path('question/', qna_views.question, name='question'),
     path('answer/', qna_views.answer, name='answer'),
     path('qnalist/', qna_views.QNAListView.as_view(), name='qnalist'),
+    path('search/', search_view, name='searchview'),
     path('userlist/<str:username>', qna_views.UserListView.as_view(), name='userlist'),
     path('answerdetail/<int:pk>/', qna_views.AnswerDetailView.as_view(), name='answerdetail'),
     path('questiondetail/<int:pk>/', qna_views.QuestionDetailView.as_view(), name='questiondetail'),
